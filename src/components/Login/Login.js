@@ -11,12 +11,26 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  useEffect(()=>{
-    setFormIsValid(
-      enteredEmail.includes('@') && enteredPassword.trim().length > 6
-    );
+  // https://reactgo.com/settimeout-in-react-hooks/
 
-  },[enteredEmail, enteredPassword]);
+  useEffect(() => {
+    console.log('1');
+    const identifier = setTimeout(() => {
+      console.log('2');
+      console.log('Checking form validity!');
+      setFormIsValid(
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6
+      );
+    }, 500);
+
+    console.log('3');
+
+    return () => {
+      console.log('4');
+      console.log('CLEANUP');
+      clearTimeout(identifier);
+    };
+  }, [enteredEmail, enteredPassword]);
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
