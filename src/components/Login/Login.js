@@ -13,15 +13,16 @@ const Login = (props) => {
 
   // https://reactgo.com/settimeout-in-react-hooks/
 
-  useEffect(() => {
+  useEffect( () => {
     console.log('1');
-    const identifier = setTimeout(() => {
+
+    const identifier = setTimeout( () => {
       console.log('2');
       console.log('Checking form validity!');
       setFormIsValid(
-        enteredEmail.includes('@') && enteredPassword.trim().length > 6
-      );
-    }, 500);
+        enteredEmail.includes('@') && enteredPassword.trim().length > 6);
+      }
+      , 500);
 
     console.log('3');
 
