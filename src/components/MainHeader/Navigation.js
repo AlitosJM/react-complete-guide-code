@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 
 import classes from './Navigation.module.css';
 import AuthContext from '../../store/auth-context';
 
 const Navigation = (props) => {
+  // const cxt0 = useContext(AuthContext); // without <AuthContext.Consumer>
   return (
     <AuthContext.Consumer>
       {(cxt) => 
