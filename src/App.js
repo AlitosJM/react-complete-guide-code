@@ -52,7 +52,7 @@ function App() {
 
   useEffect(() => {
    // fetchTasks();
-    fetchTasks({url:url});
+    fetchTasks({url});
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
