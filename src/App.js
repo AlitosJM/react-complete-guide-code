@@ -8,20 +8,10 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const url = 'https://http-hook-default-rtdb.firebaseio.com/tasks.json';
 
-  const transformTask = useCallback((tasksObj) => {
-    const loadedTasks = [];
-
-    for (const taskKey in tasksObj) {
-      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-
-  }, []);
 
   // const httpData = useHttp({url:url}, transformTask);
   // const {isLoading, error, sendRequest: fetchTasks} = httpData;
-  const {isLoading, error, sendRequest: fetchTasks} = useHttp(transformTask);
+  const {isLoading, error, sendRequest: fetchTasks} = useHttp();
 
   // const fetchTasks = async (taskText) => {
   //   setIsLoading(true);
@@ -51,8 +41,18 @@ function App() {
   // };
 
   useEffect(() => {
+    const transformTask = (tasksObj) => {
+      const loadedTasks = [];
+  
+      for (const taskKey in tasksObj) {
+        loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
+      }
+  
+      setTasks(loadedTasks);
+  
+    };
    // fetchTasks();
-    fetchTasks({url:url});
+    fetchTasks({url:url}, transformTask);
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
