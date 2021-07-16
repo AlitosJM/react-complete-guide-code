@@ -10,6 +10,15 @@ const SimpleInput = (props) => {
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput
   } = useInput(value => value.trim() !== '');
+
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput,
+  } = useInput((value) => value.includes('@'));
   // const [enteredName, setEnteredName] = useState('');
   // const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   // const [enteredNameTouched, setEnteredNameTouched] = useState(false);
@@ -23,7 +32,7 @@ const SimpleInput = (props) => {
   let formIsValid = false;
 
 
-  if(enteredNameIsValid){
+  if(enteredNameIsValid && enteredEmailIsValid){
     formIsValid = true;
   }
   
@@ -91,10 +100,17 @@ const SimpleInput = (props) => {
     // setEnteredNameTouched(false);
 
     resetNameInput();
+    resetEmailInput();
   };
 
 
-  const nameIpuntClasses = nameInputHasError ? 'form-control invalid' : 'form-control';
+  const nameIpuntClasses = nameInputHasError 
+  ? 'form-control invalid' 
+  : 'form-control';
+
+  const emailInputClasses = emailInputHasError
+  ? 'form-control invalid'
+  : 'form-control';
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -111,8 +127,21 @@ const SimpleInput = (props) => {
         value={enteredName}/>
       </div>
       {/* nameInputIsInvalid */}
-
       {nameInputHasError && <p className="error-text"> Name must not be empty! </p>}
+      
+      <div className={emailInputClasses}>
+        <label htmlFor='email'>Your E-Mail</label>
+        <input
+          type='email'
+          id='email'
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+          value={enteredEmail}
+        />
+        {emailInputHasError && (
+          <p className='error-text'>Please enter a valid email.</p>
+        )}
+      </div>
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
       </div>
