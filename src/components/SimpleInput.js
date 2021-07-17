@@ -1,5 +1,6 @@
 // import {useState} from 'react';
-import useInput from '../hooks/use-input';
+// import useInput from '../hooks/use-input';
+import useInput from '../hooks/use-input-reducer';
 
 const SimpleInput = (props) => {
   const {
