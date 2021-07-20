@@ -6,6 +6,7 @@ import MealItem from "./MealItem/MealItem";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const url = 'https://react-http-2a442-default-rtdb.firebaseio.com/meals.json';
 
   useEffect(()=>{
@@ -26,12 +27,20 @@ const AvailableMeals = () => {
       }
 
       setMeals(loadedMeals);
+      setIsLoading(false);
     };
     console.log("outside 1 of fetchMeals");
     fetchMeals(url);
     console.log("outside 2 of fetchMeals");
 
   },[]);
+
+  if(isLoading){
+    return (
+    <section className={classes.MealsLoading}>
+      <p>Loading...</p>      
+    </section>);
+  }
 
   const mealsList =  meals.map( meal => (
     <MealItem key={meal.id} id={meal.id} name={meal.name} description={meal.description} price={meal.price}/>)
