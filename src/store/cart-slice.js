@@ -89,6 +89,40 @@ export const sendCartData = (cart) => {
   };
 };
 
+export const fectchCartData = () => {
+  
+  return async (dispatch) => {
+
+    const fetchData = async () => {
+      const url = 'https://react-http-2a442-default-rtdb.firebaseio.com/cart.json';
+      const response = await fetch(url);    
+
+    if (!response.ok) {
+      throw new Error('Could not fetch cart data!');
+    }
+
+    const data = await response.json();
+
+    return data;
+  };
+
+  try{
+    const cartData = await fetchData();
+    dispatch(cartActions.replaceCart(cartData));
+  } 
+  catch (error) {
+    dispatch(
+      uiActions.showNotification({
+        status: 'error',
+        title: 'Error!',
+        message: 'Fetching cart data failed!',
+      })
+    );}
+
+  };
+
+};
+
 export const cartActions = cartSlice.actions;
 
 export default cartSlice;
