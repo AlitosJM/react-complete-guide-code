@@ -1,5 +1,5 @@
 import { useRef, useState, Fragment } from 'react';
-import { Prompt } from 'react-router';
+import { Prompt } from 'react-router-dom';
 import Card from '../UI/Card';
 import LoadingSpinner from '../UI/LoadingSpinner';
 import classes from './QuoteForm.module.css';
@@ -30,7 +30,7 @@ const QuoteForm = (props) => {
 
   return (
     <Fragment>
-      <Prompt when={isEntered} message={(location)=>{'Are you sure you want to leave? All your entered data will be lost! '}}/>
+      <Prompt when={isEntered} message={(location)=>'Are you sure you want to leave? All your entered data will be lost! '}/>
       <Card>
         <form onFocus={formFocusedHandler} className={classes.form} onSubmit={submitFormHandler}>
           {props.isLoading && (
@@ -48,7 +48,7 @@ const QuoteForm = (props) => {
             <textarea id='text' rows='5' ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
-            <button onCLick={finishEnteringHandler} className='btn'>Add Quote</button>
+            <button onClick={finishEnteringHandler} className='btn'>Add Quote</button>
           </div>
         </form>
       </Card>
