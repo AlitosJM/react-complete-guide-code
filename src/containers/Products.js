@@ -8,6 +8,7 @@ import './Products.css';
 
 const Products = props => {
   const state = useStore()[0];
+
   // const productList = useContext(ProductsContext).products;
   // const productList = useSelector(state => state.shop.products);
   return (
